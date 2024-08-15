@@ -68,8 +68,9 @@ class GroupRenderer: NodeRenderer {
         }
         renderers.removeAll()
 
-        renderers = group.contents.compactMap { child -> NodeRenderer? in
-            RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
+        renderers = group.contents.compactMap { [weak self]  child -> NodeRenderer? in
+            guard let self = self else { return nil}
+            return RenderUtils.createNodeRenderer(child, view: view, parentRenderer: self)
         }
 
         var parent: NodeRenderer = self

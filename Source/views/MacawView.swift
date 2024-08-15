@@ -205,7 +205,10 @@ open class MacawView: MView, MGestureRecognizerDelegate {
 }
 
 internal class DrawingView: MView {
-
+    deinit{
+        self.renderer?.dispose()
+        self.renderer = nil
+    }
     /// Scene root node
     open var node: Node = Group() {
         didSet {
@@ -213,9 +216,9 @@ internal class DrawingView: MView {
             self.renderer?.dispose()
             self.renderer = RenderUtils.createNodeRenderer(node, view: self)
 
-            if let _ = superview {
-                animationProducer.addStoredAnimations(node, self)
-            }
+//            if let _ = superview {
+//                animationProducer.addStoredAnimations(node, self)
+//            }
 
             self.setNeedsDisplay()
             invalidateIntrinsicContentSize()

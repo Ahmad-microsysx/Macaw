@@ -1,7 +1,7 @@
 import Foundation
 
 open class Node: Drawable {
-
+   
     public let placeVar: AnimatableVariable<Transform>
     open var place: Transform {
         get { return placeVar.value }
@@ -59,7 +59,9 @@ open class Node: Drawable {
     public func nodesBy(predicate: (Node) -> Bool) -> [Node] {
         return [nodeBy(predicate: predicate)].compactMap { $0 }
     }
-
+    deinit{
+         print("deinit Node")
+    }
     // MARK: - Events
     internal var animationObservers = [AnimationObserver]()
 
@@ -184,6 +186,7 @@ open class Node: Drawable {
             self?.pinchHandlers.remove(at: index)
         }
     }
+    
 
     // Helpers
 

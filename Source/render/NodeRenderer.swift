@@ -88,6 +88,7 @@ class NodeRenderer {
 
     deinit {
         disposables.dispose()
+        dispose()
     }
 
     func doAddObservers() {
@@ -97,7 +98,7 @@ class NodeRenderer {
         observe(node.clipVar)
         observe(node.effectVar)
 
-        node.animationObservers.append(self)
+//        node.animationObservers.append(self)
 
         node.placeVar.onChange { [weak self] _ in
             self?.freeCachedAbsPlace()
@@ -118,7 +119,7 @@ class NodeRenderer {
 
     open func dispose() {
         removeObservers()
-        node.animationObservers = node.animationObservers.filter { !($0 as? NodeRenderer === self) }
+//        node.animationObservers = node.animationObservers.filter { [weak self] item in !(item as? NodeRenderer === self) }
         freeLayer()
     }
 
@@ -385,7 +386,7 @@ class NodeRenderer {
 
     func getAllChildrenRecursive() -> [NodeRenderer] {
         var children = getAllChildren(self)
-        children.removeAll { r -> Bool in
+        children.removeAll { [weak self]  r -> Bool in
             r === self
         }
         return children

@@ -20,7 +20,9 @@ open class GroupDisposable {
     open func add(_ item: Disposable) {
         items.append(item)
     }
-
+    deinit{
+        dispose()
+    }
 }
 
 extension Disposable {

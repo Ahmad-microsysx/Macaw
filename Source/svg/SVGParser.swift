@@ -148,9 +148,20 @@ open class SVGParser {
                 }
             }
         }
-        let layout = try svgElement.flatMap(parseViewBox)
+        var layout: SVGNodeLayout? 
+        if let svgElement = svgElement{
+            layout = try  parseViewBox(svgElement)
+        }
+//        = try svgElement.flatMap { [weak self]  element in
+//            guard let self = self else { return nil}
+//           return parseViewBox(element)
+//        }
+//        let layout: SVGNodeLayout? = try svgElement.flatMap(parseViewBox)
         try parseSvg(parsedXml.children)
-        let root = layout.flatMap { SVGCanvas(layout: $0, contents: nodes) } ?? Group(contents: nodes)
+        let root = layout.flatMap {  [weak self]  nodeLayout in
+            guard let self = self else { return nil }
+            return  SVGCanvas(layout: nodeLayout, contents: nodes)
+        } ?? Group(contents: nodes)
         if let opacity = svgElement?.attribute(by: "opacity") {
             root.opacity = getOpacity(opacity.text)
         }
