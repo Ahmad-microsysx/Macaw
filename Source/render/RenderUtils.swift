@@ -26,7 +26,10 @@ class RenderUtils {
         } else if let image = node as? Image {
             return ImageRenderer(image: image, view: view, parentRenderer: parentRenderer)
         }
-        fatalError("Unsupported node: \(node)")
+        ///do not think it is a good idea to just add a fatal error
+//        fatalError("Unsupported node: \(node)")
+        
+       return NodeRenderer(node: Node(), view: view)
     }
 
     static let availableFonts = prepareFonts()
@@ -137,8 +140,9 @@ class RenderUtils {
         } else if let ellipse = locus as? Ellipse {
             return MBezierPath(ovalIn: ellipse.bounds().toCG())
         }
-
-        fatalError("Unsupported locus: \(locus)")
+//        fatalError("Unsupported locus: \(locus)")
+       return MBezierPath()
+        
     }
 
     fileprivate class func arcToPath(_ arc: Arc) -> MBezierPath {

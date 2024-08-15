@@ -14,13 +14,13 @@ open class Disposable {
 
     init (_ disposeHandler: @escaping (() -> Void) ) {
         handler = disposeHandler
-        print("init Disposable- In")
+//        print("init Disposable- In")
     }
 
     open func dispose() {
         handler()
     }
     deinit{
-          print("deinit Disposable- out")
+//          print("deinit Disposable- out")
     }
 }

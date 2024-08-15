@@ -186,8 +186,8 @@ extension CGPath {
 
         var segments = [PathSegment]()
         self.forEach { (element: CGPathElement) in
-
-            let segment: PathSegment
+            
+            var segment: PathSegment?
             switch element.type {
             case .moveToPoint:
                 segment = createPathSegment(type: .M, points: element.points, count: 1)
@@ -199,10 +199,14 @@ extension CGPath {
                 segment = createPathSegment(type: .C, points: element.points, count: 3)
             case .closeSubpath:
                 segment = PathSegment(type: .z)
+//            @unknown default:
+//                fatalError("Unknown element type: \(element.type)")
             @unknown default:
-                fatalError("Unknown element type: \(element.type)")
+                  print("Unknown element type: \(element.type)")
             }
-            segments.append(segment)
+            if let segment = segment{
+                segments.append(segment)
+            }
         }
 
         return Path(segments: segments, fillRule: .nonzero)

@@ -60,7 +60,7 @@ open class Node: Drawable {
         return [nodeBy(predicate: predicate)].compactMap { $0 }
     }
     deinit{
-         print("deinit Node")
+//         print("deinit Node")
     }
     // MARK: - Events
     internal var animationObservers = [AnimationObserver]()

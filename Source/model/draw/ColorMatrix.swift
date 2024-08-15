@@ -25,9 +25,11 @@ open class ColorMatrix {
 
     public init(values: [Double]) {
         if values.count != 20 {
-            fatalError("ColorMatrix: wrong matrix count")
+//            fatalError("ColorMatrix: wrong matrix count")
+              print("ColorMatrix: wrong matrix count")
+        }else{
+            self.values = values
         }
-        self.values = values
     }
 
     public convenience init(color: Color) {

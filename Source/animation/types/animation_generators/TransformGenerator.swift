@@ -12,7 +12,9 @@ func addTransformAnimation(_ animation: BasicAnimation, _ context: AnimationCont
     }
 
     if transformAnimation.trajectory != nil && transformAnimation.easing === Easing.elasticInOut {
-        fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
+//        fatalError("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
+          print("Transform animation with trajectory can't have elastic easing, try using contentVar animation instead")
+        return
     }
 
     guard let node = animation.node, let renderer = animation.nodeRenderer else {
